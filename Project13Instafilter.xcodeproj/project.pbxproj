@@ -77,11 +77,8 @@
 		BA31F3341B2C75E7006E39EB /* Project13Instafilter */ = {
 			isa = PBXGroup;
 			children = (
-				BA31F3371B2C75E7006E39EB /* AppDelegate.swift */,
 				BA31F3391B2C75E7006E39EB /* ViewController.swift */,
 				BA31F33B1B2C75E7006E39EB /* Main.storyboard */,
-				BA31F33E1B2C75E7006E39EB /* Images.xcassets */,
-				BA31F3401B2C75E7006E39EB /* LaunchScreen.xib */,
 				BA31F3351B2C75E7006E39EB /* Supporting Files */,
 			);
 			path = Project13Instafilter;
@@ -90,6 +87,9 @@
 		BA31F3351B2C75E7006E39EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BA31F3371B2C75E7006E39EB /* AppDelegate.swift */,
+				BA31F33E1B2C75E7006E39EB /* Images.xcassets */,
+				BA31F3401B2C75E7006E39EB /* LaunchScreen.xib */,
 				BA31F3361B2C75E7006E39EB /* Info.plist */,
 			);
 			name = "Supporting Files";
