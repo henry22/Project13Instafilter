@@ -15,12 +15,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //containing the image that the user selected
     var currentImage: UIImage!
+    //the Core Image component that handles rendering
+    var context: CIContext!
+    //will store whatever filter we have activated
+    var currentFilter: CIFilter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Instafilter"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "importPicture")
+        //creates a default Core Image context
+        context = CIContext(options: nil)
+        //creates an example filter that will apply a sepia tone effect to images
+        currentFilter = CIFilter(name: "CISepiaTone")
     }
     
     func importPicture() {
@@ -44,6 +52,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismissViewControllerAnimated(true, completion: nil)
         
         currentImage = newImage
+        
+        //create a CIImage from a UIImage
+        let beginImage = CIImage(image: currentImage)
+        //send the result into the current Core Image Filter using the kCIInputImageKey
+        currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+        
+        applyProcessing()
+    }
+    
+    func applyProcessing() {
+        currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
+        //all of the image we want to render
+        let cgimg = context.createCGImage(currentFilter.outputImage, fromRect: currentFilter.outputImage.extent())
+        let processedImage = UIImage(CGImage: cgimg)
+        
+        imageView.image = processedImage
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -62,6 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func intensityChanged(sender: AnyObject) {
+        applyProcessing()
     }
 }
 
