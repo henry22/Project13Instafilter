@@ -116,6 +116,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func save(sender: AnyObject) {
+        //This method takes four parameters: the image to write, who to tell when writing has finished, what method to call, and any context
+        UIImageWriteToSavedPhotosAlbum(imageView.image, self, "image:didFinishSavingWithError:contextInfo:", nil)
+    }
+    
+    //"image:didFinishSavingWithError:contextInfo:", which will call a method looks like this
+    func image(image: UIImage!, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
+        if error == nil {
+            let ac = UIAlertController(title: "Saved", message: "Your altered image has been saved to your photos", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        } else {
+            //this will tell users what the error message was in their own language
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
     
     @IBAction func intensityChanged(sender: AnyObject) {
